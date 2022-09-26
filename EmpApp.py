@@ -87,9 +87,9 @@ def AddEmp():
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
     ss = request.form['emp_id']
-    take_info = "Select first_name from employee where emp_id='2'"
+    take_info = "Select first_name from employee where emp_id=%s"
     cursor = db_conn.cursor()
-    cursor.execute(take_info)
+    cursor.execute(take_info,ss)
     rows = cursor.fetchall()
     db_conn.commit()
     rows=[i[0] for i in rows]
