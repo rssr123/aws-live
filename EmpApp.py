@@ -93,7 +93,7 @@ def FetchData():
     rows = cursor.fetchall()
     db_conn.commit()
     rows=[i[0] for i in rows]
-    return render_template('GetEmpOutput.html', fname=myresult)
+    return render_template('GetEmpOutput.html', fname=rows)
 
 
 if __name__ == '__main__':
