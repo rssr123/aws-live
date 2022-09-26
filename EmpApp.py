@@ -86,8 +86,8 @@ def AddEmp():
 
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
-    emp_id = request.form['emp_id']
-    take_info = "Select * from employee where emp_id=emp_id"
+    ss = request.form['emp_id']
+    take_info = "Select * from employee where emp_id=ss"
     cursor = db_conn.cursor()
     cursor.execute(take_info)
     myresult = cursor.fetchone()
