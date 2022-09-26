@@ -87,10 +87,10 @@ def AddEmp():
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
     ss = request.form['emp_id']
-    take_info = "Select * from employee where emp_id=ss"
+    take_info = "Select * from employee where emp_id='2'"
     cursor = db_conn.cursor()
     cursor.execute(take_info)
-    myresult = cursor.fetchone()
+    myresult = cursor.fetchall()
     db_conn.commit()
     return render_template('GetEmpOutput.html', fname=myresult)
 
