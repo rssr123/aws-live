@@ -84,7 +84,7 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
-@app.route("/fetchdata", methods=['GET'])
+@app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
     take_info = "Select * from employee where emp_id='emp_id'"
     cursor = db_conn.cursor()
