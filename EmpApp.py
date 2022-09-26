@@ -90,8 +90,9 @@ def FetchData():
     take_info = "Select first_name from employee where emp_id='2'"
     cursor = db_conn.cursor()
     cursor.execute(take_info)
-    myresult = cursor.fetchall()
+    rows = cursor.fetchall()
     db_conn.commit()
+    rows=[i[0] for i in rows]
     return render_template('GetEmpOutput.html', fname=myresult)
 
 
