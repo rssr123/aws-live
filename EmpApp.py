@@ -104,7 +104,7 @@ def FetchData():
 def ApplyLeave():
     lestdate = request.form['leavestartdate']
     eid = request.form['emp_id']
-    updateLeave = "update employee set leavestartdate = %s  where emp_id=%s"
+    updateLeave = "update employee set leave_start_date = %s  where emp_id=%s"
     cursor = db_conn.cursor()
     cursor.execute(updateLeave,(lestdate,eid))
     db_conn.commit()
