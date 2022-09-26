@@ -30,8 +30,8 @@ def home():
 def about():
     return render_template('www.intellipaat.com')
 
-@app.route("/getemp", methods=['GET'])
-def about():
+@app.route("/getemp", methods=['GET', 'POST'])
+def getemp():
     return render_template('GetEmp.html')
 
 
