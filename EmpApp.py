@@ -34,6 +34,9 @@ def about():
 def getemp():
     return render_template('GetEmp.html')
 
+@app.route("/apply", methods=['GET', 'POST'])
+def apply():
+    return render_template('ApplyLeave.html')
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -97,6 +100,14 @@ def FetchData():
     llname=[record[1] for record in records]
     return render_template('GetEmpOutput.html', fname=ffname,lname=llname)
 
+@app.route("/applyleave", methods=['GET', 'POST'])
+def ApplyLeave():
+    leavestartdate = request.form['leavestartdate']
+    rr = request.form['emp_id']
+    update_leave = "update employee set leavestartdate = %s  where emp_id=%s"
+    cursor = db_conn.cursor()
+    cursor.execute(update_leave,leavestartdate,rr)
+    db_conn.commit()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
