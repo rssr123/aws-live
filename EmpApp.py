@@ -91,7 +91,7 @@ def FetchData():
     cursor.execute(take_info)
     myresult = cursor.fetchone()
     db_conn.commit()
-    return render_template('GetEmpOutput.html', fname=myresult.first_name)
+    return render_template('GetEmpOutput.html', fname='emp_id')
 
 
 if __name__ == '__main__':
