@@ -72,8 +72,12 @@ def AddEmp():
     pri_skill = request.form['pri_skill']
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
+    leave_start_date=0000-00-00
+    leave_end_date=0000-00-00
+    leave_reason='none'
+    leave_status='none'
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,0000-00-00,0000-00-00,'none','none')"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s,%s,%s,%s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
