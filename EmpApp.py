@@ -127,7 +127,7 @@ def ViewAllLeave():
     view_records = cursor.fetchall()
     db_conn.commit()
 
-    for n in view_records
+    for n in view_records:
          (emp_id[n], first_name, last_name, leave_start_date, leave_end_date, leave_reason)=view_records[n]
          final_emp_id=final_emp_id+emp_id[n]
    # empId=[record[0] for record in view_records]
