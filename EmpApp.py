@@ -102,11 +102,13 @@ def FetchData():
 
 @app.route("/applyleave", methods=['GET', 'POST'])
 def ApplyLeave():
-    lestdate = request.form['leavestartdate']
+    start_date = request.form['leave_start_date']
+    end_date = request.form['leave_end_date']
+    reason = request.form['leave_reason']
     eid = request.form['emp_id']
-    updateLeave = "update employee set leave_start_date = %s  where emp_id=%s"
+    updateLeave = "update employee set leave_start_date = %s, leave_end_date = %s, leave_reason =%s  where emp_id=%s"
     cursor = db_conn.cursor()
-    cursor.execute(updateLeave,(lestdate,eid))
+    cursor.execute(updateLeave,(start_date,end_date,reason,eid))
     db_conn.commit()
 
 if __name__ == '__main__':
