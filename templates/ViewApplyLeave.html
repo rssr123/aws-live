@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply leave</title>
+    <style>
+        body {
+            background-color: aqua;
+        }
+
+        form {
+            text-align: center;
+        }
+        table{
+            margin-left:auto;
+            margin-right:auto;
+        }
+    </style>
+</head>
+<center>
+    <font color="black" size="5" style="font-family: avenir">
+
+        <h1 style="color: DodgerBlue">Apply Leave</h1>
+
+        <body bgcolor="lightgrey">
+
+            <form action="/viewleave">
+                Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" autofocus size="40"><br><br>
+                <table border="3px">
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee First Name</th>
+                        <th>Employee Last Name</th>
+                        <th>Leave Start Date</th>
+                        <th>Leave End Date</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr height="100px">
+                        <td>{{emp_id}}</td>
+                        <td>{{first_name}}</td>
+                        <td>{{last_name}}</td>
+                        <td>{{leave_start_date}}</td>
+                        <td>{{leave_end_date}}</td>
+                        <td>{{leave_reason}}</td>
+                        <td>{{leave_status}}</td>
+                    </tr>
+                </table>
+                <br /><br />
+                <button type="submit" formaction="/viewleave" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">View Status</button><br><br>
+            </form>
+        </body>
+    </font>
+</center>
+</html>
