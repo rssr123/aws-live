@@ -39,7 +39,7 @@ def apply():
 
 @app.route("/gotoviewallleave", methods=['GET', 'POST'])
 def gotoviewallleave():
-    return render_template('ViewAllApplyLeave.html')
+    return render_template('ViewApplyLeave.html')
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -114,7 +114,7 @@ def ApplyLeave():
     cursor = db_conn.cursor()
     cursor.execute(updateLeave,(start_date,end_date,reason,'pending',eid))
     db_conn.commit()
-    return render_template('ViewAllApplyLeave.html')
+    return render_template('AddEmp.html')
 
 
 #below
@@ -128,7 +128,7 @@ def ViewLeave():
     db_conn.commit()
 
     (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
-    return render_template('ViewAllApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_status)
+    return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_status)
 
 
 if __name__ == '__main__':
