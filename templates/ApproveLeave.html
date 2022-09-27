@@ -26,32 +26,11 @@
 
             <form action="/approveleave" autocomplete="on" method="POST" enctype="multipart/form-data">
                 Employee ID:<br> <input style="height:25px;font-size:14pt;" type="number" name="emp_id" autofocus size="40"><br><br>
-                <table border="3px">
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Leave Start Date</th>
-                        <th>Leave End Date</th>
-                        <th>Reason</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr height="100px">
-                        <td>{{emp_id}}</td>
-                        <td>{{first_name}}</td>
-                        <td>{{last_name}}</td>
-                        <td>{{leave_start_date}}</td>
-                        <td>{{leave_end_date}}</td>
-                        <td>{{leave_reason}}</td>
-                        <td>{{leave_status}}</td>
-                    </tr>
-                </table>
+          
                 <br /><br />
-                <input type="submit" formaction="/approveleave" id ="approve" name="action" value="approve" style="background: green; height: 45px; width: 200px; color:white; font:oblique;">Approve</input>&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="submit" formaction="/approveleave" id ="Approve" name="action" value="Approve" style="background: green; height: 45px; width: 200px; color:white; font:oblique;"></input>&nbsp&nbsp&nbsp&nbsp&nbsp
                 &nbsp&nbsp&nbsp&nbsp&nbsp
-                <button type="submit" formaction="/approveviewleave" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">View Status</button>    &nbsp&nbsp&nbsp&nbsp&nbsp
-                &nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="submit" formaction="/approveleave" id="reject" name="action" value="reject" style="background: red; height: 45px; width: 200px; color:white; font:oblique;">Reject</input><br><br>
+                <input type="submit" formaction="/approveleave" id="Reject" name="action" value="Reject" style="background: red; height: 45px; width: 200px; color:white; font:oblique;"></input><br><br>
             </form>
         </body>
     </font>
