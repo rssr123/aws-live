@@ -123,7 +123,7 @@ def AddEmp():
 #below
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
-    if request.methods =='POST':
+    if request.method =='POST':
        try:
             eid = request.form['emp_id']
             cursor = db_conn.cursor()
