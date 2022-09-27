@@ -129,7 +129,7 @@ def ViewAllLeave():
     #firstName=[record[1] for record in view_records]
     for row in view_records:
         m = m+row,'\n'
-    return render_template('ViewAllApplyLeave.html', emp_id=m)
+    return render_template('ViewAllApplyLeave.html', emp_id='3')
 
 
 if __name__ == '__main__':
