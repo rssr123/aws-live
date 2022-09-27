@@ -66,7 +66,7 @@ def gotoapproveleave():
 
 @app.route("/addemp", methods=['GET','POST'])
 def AddEmp():
-    if request.method=='POST'
+    if request.method=='POST':
 
         emp_id = request.form['emp_id']
         first_name = request.form['first_name']
