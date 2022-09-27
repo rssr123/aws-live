@@ -129,9 +129,9 @@ def ViewAllLeave():
 
     #empid=[record[0] for record in view_records]
     #firstName=[record[1] for record in view_records]
-    for row in view_records:
-        m = m+row
-    return render_template('ViewAllApplyLeave.html', emp_id=m)
+   # for row in view_records:
+     #   m = m+row
+    return render_template('ViewAllApplyLeave.html', emp_id=view_records)
 
 
 if __name__ == '__main__':
