@@ -139,7 +139,7 @@ def ViewLeave():
 def ApproveLeave():
     eid = request.form['emp_id']
     approve_va=request.form['action']
-    if approve_va=='approve':
+    if approve_va=='Approve':
         lestatus='approve'
     else:
         lestatus='reject'
@@ -148,7 +148,7 @@ def ApproveLeave():
     cursor = db_conn.cursor()
     cursor.execute(approve_leave,(lestatus,eid))
     db_conn.commit()
-    return render_template('ApproveLeave.html')
+    return render_template('ApproveLeave.html',first_name=approve_va)
 
 #below
 @app.route("/approveviewleave", methods=['GET', 'POST'])
