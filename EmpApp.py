@@ -110,15 +110,18 @@ def FetchData():
 #below
 @app.route("/applyleave", methods=['GET', 'POST'])
 def ApplyLeave():
-    start_date = request.form['leave_start_date']
-    end_date = request.form['leave_end_date']
-    reason = request.form['leave_reason']
-    eid = request.form['emp_id']
-    updateLeave = "update employee set leave_start_date = %s, leave_end_date = %s, leave_reason =%s, leave_status=%s  where emp_id=%s"
-    cursor = db_conn.cursor()
-    cursor.execute(updateLeave,(start_date,end_date,reason,'pending',eid))
-    db_conn.commit()
-    return render_template('AddEmp.html')
+    try:
+      start_date = request.form['leave_start_date']
+      end_date = request.form['leave_end_date']
+      reason = request.form['leave_reason']
+      eid = request.form['emp_id']
+      updateLeave = "update employee set leave_start_date = %s, leave_end_date = %s, leave_reason =%s, leave_status=%s  where emp_id=%s"
+      cursor = db_conn.cursor()
+      cursor.execute(updateLeave,(start_date,end_date,reason,'pending',eid))
+      db_conn.commit()
+      return render_template('AddEmp.html')
+    except Exception as e:
+      return render_template('IdNotFound.html')
 
 
 #below
