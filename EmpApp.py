@@ -94,18 +94,28 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+
+  
+   # ffname=[record[0] for record in records]
+   # llname=[record[1] for record in records]
+   
+
+
+#below
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
-    ss = request.form['emp_id']
-    take_info = "Select first_name, last_name from employee where emp_id=%s"
-    cursor = db_conn.cursor()
-    cursor.execute(take_info,ss)
-    records = cursor.fetchall()
-    db_conn.commit()
-  
-    ffname=[record[0] for record in records]
-    llname=[record[1] for record in records]
-    return render_template('GetEmpOutput.html', fname=ffname,lname=llname)
+    try:
+      eid = request.form['emp_id']
+      cursor = db_conn.cursor()
+      fetch_sql = "Select * from employee where emp_id=%s"
+      cursor.execute(fetch_sql,(eid))
+      emp=cursor.fetchall
+      db_conn.commit()
+      (emp_id, first_name, last_name, pri_skill, location, salary, date_of_hire)=view_records[0]
+      image_url=show_image(custombucket)
+      return render_template('GetEmpOutput.html',emp_id=emp_id,first_name=first_name,last_name=last_name,pri_skill=pri_skill,location=location,salary=salary,date_of_hire=date_of_hire,image_url=image_url)
+    except Exception as e:
+      return render_template('IdNotFound.html')
 
 #below
 @app.route("/applyleave", methods=['GET', 'POST'])
