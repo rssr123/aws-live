@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply leave</title>
+    <style>
+        body {
+            background-color: aqua;
+        }
+
+        form {
+            text-align: center;
+        }
+        table{
+            margin-left:auto;
+            margin-right:auto;
+        }
+    </style>
+</head>
+<center>
+    <font color="black" size="5" style="font-family: avenir">
+
+        <h1 style="color: DodgerBlue">Apply Leave</h1>
+
+        <body bgcolor="lightgrey">
+
+            <form >
+                <table border="3px">
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Leave Start Date</th>
+                        <th>Leave End Date</th>
+                        <th>Reason</th>
+                    </tr>
+                    <tr>
+                        <td>{{emp_id}}</td>
+                        <td>{{full_name}}</td>
+                        <td>{{leave_start_date}}</td>
+                        <td>{{leave_end_date}}</td>
+                        <td>{{reason}}</td>
+                    </tr>
+                </table>
+
+   
+            </form>
+        </body>
+    </font>
+</center>
+</html>
