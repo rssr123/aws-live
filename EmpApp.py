@@ -120,15 +120,15 @@ def ApplyLeave():
 #below
 @app.route("/viewleave", methods=['GET', 'POST'])
 def ViewLeave():
-    eid = request.form['emp_id']
+    view_leave_emp_id = request.form['view_leave_emp_id']
     view_leave = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status from employee where emp_id=%s"
     cursor = db_conn.cursor()
-    cursor.execute(view_leave,eid)
+    cursor.execute(view_leave,(view_leave_emp_id))
     view_records = cursor.fetchall()
     db_conn.commit()
 
     (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
-    return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_status)
+    return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
 
 
 if __name__ == '__main__':
