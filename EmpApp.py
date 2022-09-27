@@ -138,7 +138,7 @@ def ViewLeave():
 @app.route("/approveleave", methods=['GET', 'POST'])
 def ApproveLeave():
     eid = request.form['emp_id']
-   if btnApprove:
+   if btnApprove==True:
       lestatus='approve'
    else:
         lestatus='reject'
