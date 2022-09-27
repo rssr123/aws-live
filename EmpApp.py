@@ -34,7 +34,7 @@ def about():
 def getemp():
     return render_template('GetEmp.html')
 
-def show_image(bucket)
+def show_image(bucket):
     s3_client = boto3.client('s3')
 
     emp_id = request.form['emp_id']
