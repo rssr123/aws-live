@@ -121,7 +121,7 @@ def ApplyLeave():
 @app.route("/viewleave", methods=['GET', 'POST'])
 def ViewLeave():
     eid = request.form['emp_id']
-    view_leave = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status from employee where emp_id=%s "
+    view_leave = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status from employee where emp_id=%s"
     cursor = db_conn.cursor()
     cursor.execute(view_leave,eid)
     view_records = cursor.fetchall()
