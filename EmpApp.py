@@ -45,7 +45,7 @@ def show_image(bucket):
             if emp_id in item['Key']:
                 public_urls=''+presigned_url
     except Exception as e:
-        pass
+        return render_template('IdNotFound.html')
     return public_urls
 
 
@@ -131,8 +131,8 @@ def FetchData():
       emp=cursor.fetchall()
       db_conn.commit()
       (emp_id, first_name, last_name, pri_skill, location)=emp[0]
-     # image_url=show_image(custombucket)
-      return render_template('GetEmpOutput.html',emp_id=emp_id,first_name=first_name,last_name=last_name,pri_skill=pri_skill,location=location)
+      image_url=show_image(custombucket)
+      return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,image_url=image_url)
    # except Exception as e:
    #   return render_template('IdNotFound.html')
 
