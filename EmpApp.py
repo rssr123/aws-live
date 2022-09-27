@@ -129,7 +129,7 @@ def ViewAllLeave():
 
     for i in range(len(view_records)):
          (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason)=view_records[i]
-         final_emp_id=final_emp_id+'\n'.join(emp_id)
+         final_emp_id=final_emp_id+'\n'+emp_id
          
    # empId=[record[0] for record in view_records]
    # firstName=[record[1] for record in view_records]
