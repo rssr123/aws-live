@@ -147,10 +147,8 @@ def ApproveLeave():
     approve_leave = "Update employee set leave_status='approve' where emp_id=%s"
     cursor = db_conn.cursor()
     cursor.execute(approve_leave,(eid))
-    view_records = cursor.fetchall()
     db_conn.commit()
-    (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
-    return render_template('ApproveLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
+    return render_template('ApproveLeave.html')
 
 #below
 @app.route("/approveviewleave", methods=['GET', 'POST'])
