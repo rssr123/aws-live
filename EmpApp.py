@@ -37,6 +37,10 @@ def getemp():
 def apply():
     return render_template('ApplyLeave.html')
 
+@app.route("/gotoviewallleave", methods=['GET', 'POST'])
+def gotoviewallleave():
+    return render_template('ViewAllApplyLeave.html')
+
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
     emp_id = request.form['emp_id']
@@ -111,8 +115,6 @@ def ApplyLeave():
     cursor.execute(updateLeave,(start_date,end_date,reason,'pending',eid))
     db_conn.commit()
     return render_template('ViewAllApplyLeave.html')
-
-
 
 
 #below
