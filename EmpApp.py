@@ -118,7 +118,7 @@ def AddEmp():
             cursor.close()
 
         print("all modification done...")
-            return render_template('AddEmpOutput.html', name=emp_name)
+        return render_template('AddEmpOutput.html', name=emp_name)
     else:
         return render_template('GetEmp.html', name=emp_name)
 
