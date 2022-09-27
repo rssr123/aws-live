@@ -134,40 +134,29 @@ def ViewLeave():
       cursor.execute(view_leave,(view_leave_emp_id))
       view_records = cursor.fetchall()
       db_conn.commit()
-     (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
-     return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
+      (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
+      return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
     except Exception as e:
       return render_template('IdNotFound.html')
 
-      
+
 #below
 @app.route("/approveleave", methods=['GET', 'POST'])
 def ApproveLeave():
-    eid = request.form['emp_id']
-    approve_va=request.form['action']
-    if approve_va=='Approve':
-        lestatus='Approve'
-    else:
-        lestatus='Reject'
-      
-    approve_leave = "Update employee set leave_status=%s where emp_id=%s"
-    cursor = db_conn.cursor()
-    cursor.execute(approve_leave,(lestatus,eid))
-    db_conn.commit()
-    return render_template('ApproveLeave.html',first_name=approve_va)
-
-#below
-@app.route("/approveviewleave", methods=['GET', 'POST'])
-def ApproveViewLeave():
-    view_leave_emp_id = request.form['view_leave_emp_id']
-    view_leave = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status from employee where emp_id=%s"
-    cursor = db_conn.cursor()
-    cursor.execute(view_leave,(view_leave_emp_id))
-    view_records = cursor.fetchall()
-    db_conn.commit()
-
-    (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
-    return render_template('ApproveLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
+    try:
+      eid = request.form['emp_id']
+      approve_va=request.form['action']
+      if approve_va=='Approve':
+         lestatus='Approve'
+      else:
+         lestatus='Reject'   
+      approve_leave = "Update employee set leave_status=%s where emp_id=%s"
+      cursor = db_conn.cursor()
+      cursor.execute(approve_leave,(lestatus,eid))
+      db_conn.commit()
+      return render_template('ApproveLeave.html',first_name=approve_va)
+    except Exception as e:
+      return render_template('IdNotFound.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
