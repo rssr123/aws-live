@@ -41,6 +41,10 @@ def apply():
 def gotoviewallleave():
     return render_template('ViewApplyLeave.html')
 
+@app.route("/gotoapproveleave", methods=['GET', 'POST'])
+def gotoapproveleave():
+    return render_template('ApproveLeave.html')
+
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
     emp_id = request.form['emp_id']
@@ -129,6 +133,19 @@ def ViewLeave():
 
     (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
     return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
+
+#below
+@app.route("/approveleave", methods=['GET', 'POST'])
+def ApproveLeave():
+    eid = request.form['emp_id']
+    approve_leave = "Update employee set leave_status='approve' where where emp_id=%s"
+    cursor = db_conn.cursor()
+    cursor.execute(approve_leave,(eid))
+    view_records = cursor.fetchall()
+    db_conn.commit()
+
+    (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
+    return render_template('ApproveLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
 
 
 if __name__ == '__main__':
