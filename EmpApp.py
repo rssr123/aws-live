@@ -104,7 +104,7 @@ def AddEmp():
 #below
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
-    try:
+  #  try:
       eid = request.form['emp_id']
       cursor = db_conn.cursor()
       fetch_sql = "Select * from employee where emp_id=%s"
@@ -114,8 +114,8 @@ def FetchData():
       (emp_id, first_name, last_name, pri_skill, location, salary, date_of_hire)=view_records[0]
       image_url=show_image(custombucket)
       return render_template('GetEmpOutput.html',emp_id=emp_id,first_name=first_name,last_name=last_name,pri_skill=pri_skill,location=location,salary=salary,date_of_hire=date_of_hire,image_url=image_url)
-    except Exception as e:
-      return render_template('IdNotFound.html')
+   # except Exception as e:
+   #   return render_template('IdNotFound.html')
 
 #below
 @app.route("/applyleave", methods=['GET', 'POST'])
