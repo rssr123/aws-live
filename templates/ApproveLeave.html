@@ -4,7 +4,7 @@
     <title>Apply leave</title>
     <style>
         body {
-            background-color: aqua;
+            background-color: white;
         }
 
         form {
@@ -20,12 +20,12 @@
 <center>
     <font color="black" size="5" style="font-family: avenir">
 
-        <h1 style="color: DodgerBlue">Approve Leave</h1>
+        <h1 style="color: red">Approve Leave</h1>
 
         <body bgcolor="lightgrey">
 
             <form action="/approveleave" autocomplete="on" method="POST" enctype="multipart/form-data">
-                Employee ID:<br> <input style="height:25px;font-size:14pt;" type="number" name="emp_id" autofocus size="40"><br><br>
+                Employee ID:<br> <input style="height: 25px; font-size: 14pt; border-radius: 30px;" type="number" name="emp_id" autofocus size="40"><br><br>
           
                 <br /><br />
                 <input type="submit" formaction="/approveleave" id ="Approve" name="action" value="Approve" style="background: green; height: 45px; width: 200px; color:white; font:oblique;"></input>&nbsp&nbsp&nbsp&nbsp&nbsp

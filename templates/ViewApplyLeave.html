@@ -4,7 +4,7 @@
     <title>Apply leave</title>
     <style>
         body {
-            background-color: aqua;
+            background-color: white;
         }
 
         form {
@@ -19,12 +19,12 @@
 <center>
     <font color="black" size="5" style="font-family: avenir">
 
-        <h1 style="color: DodgerBlue">View Leave Status</h1>
+        <h1 style="color: red">View Leave Status</h1>
 
         <body bgcolor="lightgrey">
 
             <form action="/viewleave" autocomplete="on" method="POST">
-                Employee ID:<br> <input style="height:25px;font-size:14pt;" type="number" name="view_leave_emp_id" autofocus size="40"><br><br>
+                Employee ID:<br> <input style="height: 25px; font-size: 14pt; border-radius: 30px;" type="number" name="view_leave_emp_id" autofocus size="40"><br><br>
                 <table border="3px">
                     <tr>
                         <th>ID</th>
@@ -36,7 +36,7 @@
                         <th>Status</th>
                     </tr>
                     <tr height="100px">
-                        <td>{{emp_id}}</td>
+                        <td width="25px">{{emp_id}}</td>
                         <td>{{first_name}}</td>
                         <td>{{last_name}}</td>
                         <td>{{leave_start_date}}</td>
@@ -46,7 +46,7 @@
                     </tr>
                 </table>
                 <br /><br />
-                <button type="submit" formaction="/viewleave" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">View Status</button><br><br>
+                <button type="submit" formaction="/viewleave" style="background: orangered; height: 45px; width: 200px; color: white; font: oblique; border-radius: 30px; ">View Status</button><br><br>
             </form>
         </body>
     </font>
