@@ -118,29 +118,21 @@ def ApplyLeave():
 
 
 #below
-@app.route("/viewallleave", methods=['GET', 'POST'])
-def ViewAllLeave():
-    final_emp_id=''
-    view_all = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason from employee where leave_status='pending'"
+@app.route("/viewleave", methods=['GET', 'POST'])
+def ViewLeave():
+    eid = request.form['emp_id']
+    view_leave = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status from employee where emp_id=%s "
     cursor = db_conn.cursor()
-    cursor.execute(view_all)
+    cursor.execute(view_leave,(eid))
     view_records = cursor.fetchall()
     db_conn.commit()
 
-    for i in range(len(view_records)):
-         (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason)=view_records[i]
-         final_emp_id=final_emp_id+'\n'+emp_id
+  #  for i in range(len(view_records)):
+         (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
+     #    final_emp_id=final_emp_id+'\n'+emp_id
          
-   # empId=[record[0] for record in view_records]
-   # firstName=[record[1] for record in view_records]
-   # lastName=[record[2] for record in view_records]
-   # leaveStartDate=[record[3] for record in view_records]
-   # leaveEndDate=[record[4] for record in view_records]
-  #  leaveReason=[record[5] for record in view_records]
-   # for row in view_records:
-     #   m = m+row
-   # mp_id='\n'.join(final_emp_id)
-    return render_template('ViewAllApplyLeave.html', emp_id=final_emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason='3\n\n\n3')
+   
+    return render_template('ViewAllApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_status)
 
 
 if __name__ == '__main__':
