@@ -107,7 +107,7 @@ def FetchData():
   #  try:
       eid = request.form['emp_id']
       cursor = db_conn.cursor()
-      fetch_sql = "Select * from employee where emp_id=%s"
+      fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location from employee where emp_id=%s"
       cursor.execute(fetch_sql,(eid))
       emp=cursor.fetchall()
       db_conn.commit()
