@@ -139,10 +139,10 @@ def ViewLeave():
 def ApproveLeave():
     eid = request.form['emp_id']
     approve_va=request.form['action']
-    if approve_va=='approve':
-        lestatus='approve'
+    if approve_va=='Approve':
+        lestatus='Approve'
     else:
-        lestatus='reject'
+        lestatus='Reject'
       
     approve_leave = "Update employee set leave_status=%s where emp_id=%s"
     cursor = db_conn.cursor()
