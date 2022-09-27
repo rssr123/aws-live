@@ -140,7 +140,7 @@ def ViewAllLeave():
    # for row in view_records:
      #   m = m+row
     mp_id='\n'.join(final_emp_id)
-    return render_template('ViewAllApplyLeave.html', emp_id=mp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason)
+    return render_template('ViewAllApplyLeave.html', emp_id=final_emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason)
 
 
 if __name__ == '__main__':
