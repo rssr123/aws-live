@@ -132,7 +132,7 @@ def FetchData():
       db_conn.commit()
       (emp_id, first_name, last_name, pri_skill, location)=emp[0]
      # image_url=show_image(custombucket)
-      return render_template('GetEmpOutput.html',emp_id=emp_id,first_name=first_name,last_name=last_name,pri_skill=pri_skill,location=location,image_url=image_url)
+      return render_template('GetEmpOutput.html',emp_id=emp_id,first_name=first_name,last_name=last_name,pri_skill=pri_skill,location=location)
    # except Exception as e:
    #   return render_template('IdNotFound.html')
 
