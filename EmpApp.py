@@ -138,9 +138,9 @@ def ViewLeave():
 @app.route("/approveleave", methods=['GET', 'POST'])
 def ApproveLeave():
     eid = request.form['emp_id']
-   if btnApprove==True:
-      lestatus='approve'
-   else:
+    if btnApprove:
+        lestatus='approve'
+    else:
         lestatus='reject'
       
     approve_leave = "Update employee set leave_status=%s where emp_id=%s"
