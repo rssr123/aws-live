@@ -144,7 +144,7 @@ def ApproveLeave():
    # else{
    #      lestatus='reject'
   #  }
-    approve_leave = "Update employee set leave_status='approve' where where emp_id=%s"
+    approve_leave = "Update employee set leave_status='approve' where emp_id=%s"
     cursor = db_conn.cursor()
     cursor.execute(approve_leave,(eid))
     view_records = cursor.fetchall()
