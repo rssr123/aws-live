@@ -109,7 +109,7 @@ def FetchData():
       cursor = db_conn.cursor()
       fetch_sql = "Select * from employee where emp_id=%s"
       cursor.execute(fetch_sql,(eid))
-      emp=cursor.fetchall
+      emp=cursor.fetchall()
       db_conn.commit()
       (emp_id, first_name, last_name, pri_skill, location, salary, date_of_hire)=emp[0]
       image_url=show_image(custombucket)
