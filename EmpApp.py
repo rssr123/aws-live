@@ -123,18 +123,21 @@ def AddEmp():
 #below
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
-  #  try:
-      eid = request.form['emp_id']
-      cursor = db_conn.cursor()
-      fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location from employee where emp_id=%s"
-      cursor.execute(fetch_sql,(eid))
-      emp=cursor.fetchall()
-      db_conn.commit()
-      (emp_id, first_name, last_name, pri_skill, location)=emp[0]
-      image_url=show_image(custombucket)
-      return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,image_url=https://toosweewahemployee.s3.amazonaws.com/emp-id-2_image_file)
-   # except Exception as e:
-   #   return render_template('IdNotFound.html')
+    if request.methods =='Post'
+       try:
+           eid = request.form['emp_id']
+           cursor = db_conn.cursor()
+           fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location from employee where emp_id=%s"
+           cursor.execute(fetch_sql,(eid))
+           emp=cursor.fetchall()
+           db_conn.commit()
+           (emp_id, first_name, last_name, pri_skill, location)=emp[0]
+           image_url=show_image(custombucket)
+           return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,image_url=image_url)
+        except Exception as e:
+           return render_template('IdNotFound.html')
+    else:
+        return render_template('AddEmp.html',fetchdata=fetchdata)
 
 #below
 @app.route("/applyleave", methods=['GET', 'POST'])
