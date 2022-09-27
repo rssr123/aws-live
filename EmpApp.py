@@ -138,15 +138,15 @@ def ViewLeave():
 @app.route("/approveleave", methods=['GET', 'POST'])
 def ApproveLeave():
     eid = request.form['emp_id']
- #   if(btnApprove){
-  #      lestatus='approve'
-  #  }
-   # else{
-   #      lestatus='reject'
-  #  }
-    approve_leave = "Update employee set leave_status='approve' where emp_id=%s"
+   if(btnApprove){
+      lestatus='approve'
+   }
+   else{
+        lestatus='reject'
+   }
+    approve_leave = "Update employee set leave_status=%s where emp_id=%s"
     cursor = db_conn.cursor()
-    cursor.execute(approve_leave,(eid))
+    cursor.execute(approve_leave,(lestatus,eid))
     db_conn.commit()
     return render_template('ApproveLeave.html')
 
