@@ -134,7 +134,7 @@ def FetchData():
             (emp_id, first_name, last_name, pri_skill, location)=emp[0]
             image_url=show_image(custombucket)
             return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,image_url=image_url)
-        except Exception as e:
+       except Exception as e:
             return render_template('IdNotFound.html')
     else:
         return render_template('AddEmp.html',fetchdata=fetchdata)
