@@ -29,9 +29,28 @@ def home():
 def about():
     return render_template('www.intellipaat.com')
 
+#below
 @app.route("/getemp", methods=['GET', 'POST'])
 def getemp():
     return render_template('GetEmp.html')
+
+def show_image(bucket)
+    s3_client = boto3.client('s3')
+
+    emp_id = request.form['emp_id']
+
+    try:
+        for item in s3_client.list_objects(Bucket=bucket)['Contents']:
+            presigned_url=s3_client.generate_presigned_url('get_object',Params={'Bucket':bucket, 'Key':item['Key']},ExpiresIn=100)
+            if emp_id in item['Key']
+                public_urls=''+presigned_url
+    except Exception as e:
+        pass
+    return public_urls
+
+
+
+
 
 @app.route("/apply", methods=['GET', 'POST'])
 def apply():
