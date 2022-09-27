@@ -111,7 +111,7 @@ def FetchData():
       cursor.execute(fetch_sql,(eid))
       emp=cursor.fetchall
       db_conn.commit()
-      (emp_id, first_name, last_name, pri_skill, location, salary, date_of_hire)=view_records[0]
+      (emp_id, first_name, last_name, pri_skill, location, salary, date_of_hire)=emp[0]
       image_url=show_image(custombucket)
       return render_template('GetEmpOutput.html',emp_id=emp_id,first_name=first_name,last_name=last_name,pri_skill=pri_skill,location=location,salary=salary,date_of_hire=date_of_hire,image_url=image_url)
    # except Exception as e:
