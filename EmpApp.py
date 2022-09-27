@@ -139,7 +139,7 @@ def ViewLeave():
 def ApproveLeave():
     eid = request.form['emp_id']
     approve_va=request.form['action']
-    if approve_va=='Approve':
+    if approve_va=='approve':
         lestatus='approve'
     else:
         lestatus='reject'
