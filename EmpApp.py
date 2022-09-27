@@ -127,11 +127,7 @@ def ViewLeave():
     view_records = cursor.fetchall()
     db_conn.commit()
 
-  #  for i in range(len(view_records)):
-         (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
-     #    final_emp_id=final_emp_id+'\n'+emp_id
-         
-   
+    (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
     return render_template('ViewAllApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_status)
 
 
