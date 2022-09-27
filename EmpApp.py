@@ -127,11 +127,12 @@ def ViewAllLeave():
     view_records = cursor.fetchall()
     db_conn.commit()
 
-    #empid=[record[0] for record in view_records]
-    #firstName=[record[1] for record in view_records]
+    empid=[record[0] for record in view_records]
+    firstName=[record[1] for record in view_records]
+    leaveStartDate=[record[2] for record in view_records]
    # for row in view_records:
      #   m = m+row
-    return render_template('ViewAllApplyLeave.html', emp_id=view_records)
+    return render_template('ViewAllApplyLeave.html', emp_id=view_records, first_name=firstName,leave_start_date=leaveStartDate)
 
 
 if __name__ == '__main__':
