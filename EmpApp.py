@@ -106,9 +106,9 @@ def ApplyLeave():
     end_date = request.form['leave_end_date']
     reason = request.form['leave_reason']
     eid = request.form['emp_id']
-    updateLeave = "update employee set leave_start_date = %s, leave_end_date = %s, leave_reason =%s  where emp_id=%s"
+    updateLeave = "update employee set leave_start_date = %s, leave_end_date = %s, leave_reason =%s, leave_status=%s  where emp_id=%s"
     cursor = db_conn.cursor()
-    cursor.execute(updateLeave,(start_date,end_date,reason,eid))
+    cursor.execute(updateLeave,(start_date,end_date,reason,'pending',eid))
     db_conn.commit()
 
 if __name__ == '__main__':
