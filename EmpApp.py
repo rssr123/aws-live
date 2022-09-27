@@ -118,15 +118,18 @@ def ApplyLeave():
 #below
 @app.route("/viewallleave", methods=['GET', 'POST'])
 def ViewAllLeave():
-    view_all = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason from employee"
+    m=''
+    view_all = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason from employee where leave_status='pending'"
     cursor = db_conn.cursor()
     cursor.execute(view_all)
     view_records = cursor.fetchall()
     db_conn.commit()
 
-    empid=[record[0] for record in view_records]
-    firstName=[record[1] for record in view_records]
-    return render_template('ViewAllApplyLeave.html', emp_id=empid, first_name=firstName)
+    #empid=[record[0] for record in view_records]
+    #firstName=[record[1] for record in view_records]
+    for row in view_records:
+        m = m+row'\n'
+    return render_template('ViewAllApplyLeave.html', emp_id=m)
 
 
 if __name__ == '__main__':
