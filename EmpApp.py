@@ -138,7 +138,7 @@ def ViewAllLeave():
   #  leaveReason=[record[5] for record in view_records]
    # for row in view_records:
      #   m = m+row
-    mpid='\n'.join(final_emp_id)
+    mp_id='\n'.join(final_emp_id)
     return render_template('ViewAllApplyLeave.html', emp_id=mp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason)
 
 
