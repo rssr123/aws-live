@@ -20,7 +20,6 @@ db_conn = connections.Connection(
 output = {}
 table = 'employee'
 
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('AddEmp.html')
@@ -100,6 +99,7 @@ def FetchData():
     llname=[record[1] for record in records]
     return render_template('GetEmpOutput.html', fname=ffname,lname=llname)
 
+#below
 @app.route("/applyleave", methods=['GET', 'POST'])
 def ApplyLeave():
     start_date = request.form['leave_start_date']
@@ -110,6 +110,24 @@ def ApplyLeave():
     cursor = db_conn.cursor()
     cursor.execute(updateLeave,(start_date,end_date,reason,'pending',eid))
     db_conn.commit()
+    return render_template('ViewAllApplyLeave.html')
+
+
+
+
+#below
+@app.route("/viewallleave", methods=['GET', 'POST'])
+def ViewAllLeave():
+    view_all = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason from employee"
+    cursor = db_conn.cursor()
+    cursor.execute(view_all)
+    view_records = cursor.fetchall()
+    db_conn.commit()
+
+    empid=[record[0] for record in view_records]
+    firstName=[record[1] for record in view_records]
+    return render_template('ViewAllApplyLeave.html', emp_id=empid, first_name=firstName)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
