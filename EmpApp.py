@@ -73,7 +73,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -133,6 +133,7 @@ def FetchData():
             db_conn.commit()
             (emp_id, first_name, last_name, pri_skill, location)=emp[0]
             image_url=show_image(custombucket)
+            l=
             return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,image_url=image_url)
        except Exception as e:
             return render_template('IdNotFound.html')
