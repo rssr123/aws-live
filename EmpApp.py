@@ -157,7 +157,7 @@ def FetchData():
             cursor.execute(fetch_sql,(eid))
             emp=cursor.fetchall()
             db_conn.commit()
-            (emp_id, first_name, last_name, pri_skill, location)=emp[0]
+            (emp_id, first_name, last_name, pri_skill, location,gender,job_title,date_of_hired,monthly_pay)=emp[0]
             image_url=show_image(custombucket)
            
             return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,gender=gender,job_title=job_title,date_of_hired=date_of_hired,monthly_pay=monthly_pay,image_url=image_url)
