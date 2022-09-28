@@ -43,7 +43,7 @@ def show_image(bucket):
         for item in s3_client.list_objects(Bucket=bucket)['Contents']:
             presigned_url=s3_client.generate_presigned_url('get_object',Params={'Bucket':bucket, 'Key':item['Key']},ExpiresIn=100)
             if emp_id in item['Key']:
-                public_urls=''+presigned_url
+                public_urls=https://s3-toosweewah-bucket.s3.amazonaws.com/mountain.jpeg
     except Exception as e:
         return render_template('IdNotFound.html')
     return public_urls
