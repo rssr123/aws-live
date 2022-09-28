@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from pymysql import connections
 import os
 import boto3
+import datetime
 from config import *
 
 app = Flask(__name__)
@@ -43,7 +44,7 @@ def show_image(bucket):
         for item in s3_client.list_objects(Bucket=bucket)['Contents']:
             presigned_url=s3_client.generate_presigned_url('get_object',Params={'Bucket':bucket, 'Key':item['Key']},ExpiresIn=100)
             if emp_id in item['Key']:
-                public_urls="https://s3-toosweewah-bucket.s3.amazonaws.com/mountain.jpeg"
+                public_urls=''+presigned_url
     except Exception as e:
         return render_template('IdNotFound.html')
     return public_urls
@@ -64,6 +65,22 @@ def gotoviewallleave():
 def gotoapproveleave():
     return render_template('ApproveLeave.html')
 
+@app.route("/gotoupdatepayroll", methods=['GET', 'POST'])
+def gotoupdatepayroll():
+    return render_template('UpdatePayroll.html')
+
+@app.route("/gotopayroll", methods=['GET', 'POST'])
+def gotopayroll():
+    return render_template('Payroll.html')
+
+@app.route("/gotoattendance", methods=['GET', 'POST'])
+def gotoattendance():
+    return render_template('AttendanceCheckIn.html')        
+
+@app.route("/gotoaddemp", methods=['GET', 'POST'])
+def gotoaddemp():
+    return render_template('AddEmp.html')       
+
 @app.route("/addemp", methods=['GET','POST'])
 def AddEmp():
     if request.method=='POST':
@@ -77,23 +94,22 @@ def AddEmp():
         leave_end_date=0000-00-00
         leave_reason='none'
         leave_status='none'
-        gender='ss'     
+        gender=request.form['gender']     
         job_title = request.form['job_title']
         date_of_hired=request.form['date_of_hired']
-        hourly_wage='1'
-        hours_worked= '1'
-        monthly_pay = '1'
-        emp_image_file = request.files['emp_image_file']        
+        hourly_wage='0'
+        hours_worked= '0'
+        monthly_pay = '0'
+        emp_image_file = request.files['emp_image_file']       
 
-# %s,%s,%s
+ 
         insert_sql = "INSERT INTO employee VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         cursor = db_conn.cursor()
 
         if emp_image_file.filename == "":
             return "Please select a file"
 
-        try:
-# hourly_wage,hours_worked,monthly_pay
+        try: 
             cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,leave_start_date,leave_end_date,leave_reason,leave_status,gender,job_title,date_of_hired,hourly_wage,hours_worked,monthly_pay))
             db_conn.commit()
             emp_name = "" + first_name + " " + last_name
@@ -130,26 +146,21 @@ def AddEmp():
         return render_template('GetEmp.html', name=emp_name)
 
   
-   # ffname=[record[0] for record in records]
-   # llname=[record[1] for record in records]
-   
 
-
-#below
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
     if request.method =='POST':
        try:
             eid = request.form['emp_id']
             cursor = db_conn.cursor()
-            fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location from employee where emp_id=%s"
+            fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location, gender,job_title,date_of_hired,monthly_pay from employee where emp_id=%s"
             cursor.execute(fetch_sql,(eid))
             emp=cursor.fetchall()
             db_conn.commit()
-            (emp_id, first_name, last_name, pri_skill, location)=emp[0]
+            (emp_id, first_name, last_name, pri_skill, location,gender,job_title,date_of_hired,monthly_pay)=emp[0]
             image_url=show_image(custombucket)
            
-            return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,image_url=image_url)
+            return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,gender=gender,job_title=job_title,date_of_hired=date_of_hired,monthly_pay=monthly_pay,image_url=image_url)
        except Exception as e:
             return render_template('IdNotFound.html')
     else:
@@ -167,7 +178,7 @@ def ApplyLeave():
       cursor = db_conn.cursor()
       cursor.execute(updateLeave,(start_date,end_date,reason,'pending',eid))
       db_conn.commit()
-      return render_template('AddEmp.html')
+      return render_template('ApplyLeave.html')
     except Exception as e:
       return render_template('IdNotFound.html')
 
@@ -211,13 +222,13 @@ def ApproveLeave():
 def Payroll():
     try:
       payroll_emp_id = request.form['payroll_emp_id']
-      payroll = "Select emp_id, first_name, last_name, hourly_wage, hours_worked, monthly_pay from employee where emp_id=%s"
+      payroll = "Select emp_id, first_name, last_name, hourly_wage, from employee where emp_id=%s"
       cursor = db_conn.cursor()
       cursor.execute(payroll,(payroll_emp_id))
       view_records = cursor.fetchall()
       db_conn.commit()
-      (emp_id, first_name, last_name, hourly_wage, hours_worked, monthly_pay)=view_records[0]
-      return render_template('Payroll.html', emp_id=emp_id, first_name=first_name,last_name=last_name,hourly_wage=hourly_wage, leave_end_date=leave_end_date, hours_worked=hours_worked, monthly_pay=monthly_pay)
+      (emp_id, first_name, last_name, hourly_wage)=view_records[0]
+      return render_template('ViewPayroll.html', emp_id=emp_id, first_name=first_name,last_name=last_name,hourly_wage=hourly_wage)
     except Exception as e:
       return render_template('IdNotFound.html')
 
@@ -234,6 +245,78 @@ def UpdatePayroll():
       return render_template('UpdatePayroll.html')
     except Exception as e:
       return render_template('IdNotFound.html')
+
+@app.route("/checkIn", methods=['POST', 'GET'])
+def CheckIn():
+    emp_id = request.form['emp_id']
+
+    checkInSQL = "UPDATE employee SET check_in = (%(check_in)s) WHERE emp_id = %(emp_id)s"
+
+    cursor = db_conn.cursor()
+
+    checkInTime = datetime.datetime.now()
+    checkInTime_formatted = checkInTime.strftime("%Y-%m-%d %H:%M:%S")
+    print(checkInTime_formatted)
+
+    try:
+        cursor.execute(checkInSQL, {'check_in' : checkInTime_formatted, 'emp_id':int(emp_id)})
+        db_conn.commit()
+        print("Check-in data updated")
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
+    return render_template("AttendanceDisplayTime.html", date = datetime.datetime.now(),
+     checkIn = checkInTime_formatted)
+
+@app.route("/checkOut", methods=['GET', 'POST'])
+def CheckOut():
+    emp_id = request.form['emp_id']
+
+    selectCheckIn = "SELECT check_in FROM employee WHERE emp_id = %(emp_id)s"
+    insertData = "INSERT INTO attendance VALUES (%s, %s, %s)"
+
+    cursor = db_conn.cursor()
+
+    checkInTime = datetime.datetime.now()
+    checkInTime_formatted = checkInTime.strftime("%Y-%m-%d %H:%M:%S")
+    print(checkInTime_formatted)
+
+    try:
+        cursor.execute(selectCheckIn, {'emp_id' : int(emp_id)})
+        checkInTime = cursor.fetchall()
+        for row in checkInTime:
+            checkInTime_formatted = row
+            print(checkInTime_formatted[0])
+        checkOutTime = datetime.datetime.now()
+        checkInTime = datetime.datetime.strptime(checkInTime_formatted[0], '%Y-%m-%d %H:%M:%S')
+
+        checkOutTime_formatted = checkOutTime.strptime("%Y-%m-%d %H:%M:%S")
+
+        try:
+            cursor.execute(insertData, (emp_id, checkInTime_formatted[0], checkOutTime_formatted))
+            db_conn.commit()
+            print("The check in and out data is inserted")
+        except Exception as e:
+            return str(e)
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
+    return render_template("AttendanceDisplayTime.html", date=datetime.datetime.now(), checkOut = checkOutTime_formatted,
+    checkIn = checkInTime_formatted)
+
+
+@app.route("/backHome", methods=['GET','POST'])
+def Home():
+    return render_template('')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
