@@ -118,8 +118,8 @@ def AddEmp():
          #      return str(e)
      #   except Exception as e:
   #          return str(e)
-        finally:
-            cursor.close()
+        # finally:
+        #    cursor.close()
 
         print("all modification done...")
         return render_template('AddEmpOutput.html', name=emp_name)
