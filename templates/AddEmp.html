@@ -147,13 +147,14 @@
 
 		<header class="header">
 			<ul class="main-nav">
-				<li><a href="/">Home</a></li>
-				<li><a href="/">Add Employee</a></li>
+				<li><a href="/gotoaddemp">Add Employee</a></li>
 				<li><a href="/getemp">Get Employee</a></li>
 				<li><a href="/apply">Apply Leave</a></li>
 				<li><a href="/gotoviewallleave">View Leave Status</a></li>
 				<li><a href="/gotoapproveleave">Approve Leave</a></li>
-				<li><a href="/aboutus">About Us</a></li>
+				<li><a href="/gotoupdatepayroll">Update Payroll</a></li>
+				<li><a href="/gotopayroll">Payroll</a></li>
+				<li><a href="/gotoattendance">Attendance</a></li>
 			</ul>
 		</header>
 
@@ -162,8 +163,6 @@
 		<body bgcolor="white">
 
 			<form action="/addemp" autocomplete="on" method="POST" enctype="multipart/form-data">
-
-				<button type="submit" style="background: orangered; height: 45px; width: 200px; color:white; border-radius: 30px;font:oblique;">GET EMPLOYEE INFORMATION</button><br><br>
 
 				Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;border-radius: 30px;" type="number" name="emp_id" autofocus size="40"><br><br>
 
@@ -175,10 +174,10 @@
 
 				Location:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="location"><br><br>
 
-				Job Title:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="gender"><br><br>
+				Job Title:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="job_title"><br><br>
 
-				Gender:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="job_title"><br><br>
-
+				Gender:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="gender"><br><br>
+				
 				<label for="dateOfHired">Date of Hired:</label><br>
 				<input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="date" id="dateOfHired" name="date_of_hired"><br><br>
 				
@@ -187,7 +186,6 @@
 				<button type="submit" style="background: orangered; height: 45px; width: 200px; color: white; size: 5; border-radius: 30px;font:oblique;">UPDATE DATABASE</button>
 
 			</form>
-			<a href="/about">About Us</a>
 		</body>
 
 	</font>

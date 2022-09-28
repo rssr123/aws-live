@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Apply leave</title>
+    <title>Update Payroll</title>
+    <script src="https://kit.fontawesome.com/5c318c20f6.js"
+            crossorigin="anonymous"></script>
+
     <style>
         body {
             background-color: white;
@@ -10,10 +13,11 @@
         form {
             text-align: center;
         }
-        table{
-            margin-left:auto;
-            margin-right:auto;
+
+        * {
+            box-sizing: border-box;
         }
+
         body {
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
@@ -150,48 +154,29 @@
 </head>
 <center>
     <font color="black" size="3" style="font-family: avenir">
-		<header class="header">
-			<ul class="main-nav">
-				<li><a href="/gotoaddemp">Add Employee</a></li>
-				<li><a href="/getemp">Get Employee</a></li>
-				<li><a href="/apply">Apply Leave</a></li>
-				<li><a href="/gotoviewallleave">View Leave Status</a></li>
-				<li><a href="/gotoapproveleave">Approve Leave</a></li>
-				<li><a href="/gotoupdatepayroll">Update Payroll</a></li>
-				<li><a href="/gotopayroll">Payroll</a></li>
-				<li><a href="/gotoattendance">Attendance</a></li>
-			</ul>
-		</header>
-
 
         <body bgcolor="lightgrey">
+            <header class="header">
+                <ul class="main-nav">
+                    <li><a href="/gotoaddemp">Add Employee</a></li>
+                    <li><a href="/getemp">Get Employee</a></li>
+                    <li><a href="/apply">Apply Leave</a></li>
+                    <li><a href="/gotoviewallleave">View Leave Status</a></li>
+                    <li><a href="/gotoapproveleave">Approve Leave</a></li>
+                    <li><a href="/gotoupdatepayroll">Update Payroll</a></li>
+                    <li><a href="/gotopayroll">Payroll</a></li>
+                    <li><a href="/gotoattendance">Attendance</a></li>
+                </ul>
+            </header>
+            <form action="/updatePayroll" autocomplete="on" method="POST">
+                <h2 style="color: grey">Update Payroll</h2>
+                Employee ID:<br> <input style="height: 25px; font-size: 14pt; border-radius: 30px;" type="number" name="emp_id" autofocus size="40"><br><br>
 
-            <form action="/viewleave" autocomplete="on" method="POST">
-                <h2 style="color: grey">View Leave Status</h2>
-                Employee ID:<br> <input style="height: 25px; font-size: 14pt; border-radius: 30px;" type="number" name="view_leave_emp_id" autofocus size="40"><br><br>
-                <table border="3px">
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Leave Start Date</th>
-                        <th>Leave End Date</th>
-                        <th>Reason</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr height="100px">
-                        <td width="25px">{{emp_id}}</td>
-                        <td>{{first_name}}</td>
-                        <td>{{last_name}}</td>
-                        <td>{{leave_start_date}}</td>
-                        <td>{{leave_end_date}}</td>
-                        <td>{{leave_reason}}</td>
-                        <td>{{leave_status}}</td>
-                    </tr>
-                </table>
-                <br /><br />
-                <button type="submit" formaction="/viewleave" style="background: orangered; height: 45px; width: 200px;     color: white; font: oblique; border-radius: 30px; ">View Status</button><br><br>
+                Enter employee hourly wage:<input style="height: 25px; font-size: 14pt; border-radius: 30px;" type="number" name="hourly_wage" autofocus size="40"><br><br>
+
+                <input type="submit" style="background: orangered; height: 45px; width: 200px; color: white; size: 5; font:oblique;border-radius: 30px;">
             </form>
+
         </body>
     </font>
 </center>

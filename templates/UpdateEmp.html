@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Information</title>
+</head>
+<center>
+    <font color="black" size="4" style="font-family: avenir">
+        <h1 style="color: red">Update Employee Info</h1>
+        <body bgcolor="white">
+            <form action="/updateemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
+
+		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;border-radius: 30px;" type="number" name="emp_id" autofocus size="40"><br><br>
+
+		  		First Name:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="first_name" ><br><br>
+
+		  		Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="last_name"><br><br>
+
+		  		Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="pri_skill"><br><br>
+
+		  		Location:<br> <input style="height:25px;font-size:14pt;color:grey;border-radius: 30px;" type="text" name="location"><br><br>
+
+		  		Image: <input type=file name="emp_image_file" style="height:25px;font-size:14pt;color:grey;border-radius: 30px;"> <br><br>
+
+		  		<button type="submit" style="background: orangered; height: 45px; width: 200px; color: white; size: 5; font:oblique;border-radius: 30px;">UPDATE DATABASE</button>
+
+			</form>
+        </body>
+    </font>
+</center>
+
+</html>

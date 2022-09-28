@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Apply Leave</title>
@@ -158,15 +158,18 @@
         <body bgcolor="lightgrey">
             <header class="header">
                 <ul class="main-nav">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/">Add Employee</a></li>
+                    <li><a href="/gotoaddemp">Add Employee</a></li>
                     <li><a href="/getemp">Get Employee</a></li>
                     <li><a href="/apply">Apply Leave</a></li>
                     <li><a href="/gotoviewallleave">View Leave Status</a></li>
                     <li><a href="/gotoapproveleave">Approve Leave</a></li>
-                    <li><a href="/aboutus">About Us</a></li>
+                    <li><a href="/gotoupdatepayroll">Update Payroll</a></li>
+                    <li><a href="/gotopayroll">Payroll</a></li>
+                    <li><a href="/gotoattendance">Attendance</a></li>
                 </ul>
             </header>
+
+            
             <form action="/applyleave" autocomplete="on" method="POST">
                 <h2 style="color: grey">Apply Leave</h2>
                 Employee ID:<br> <input style="height: 25px; font-size: 14pt; border-radius: 30px;" type="number" name="emp_id" autofocus size="40"><br><br>
