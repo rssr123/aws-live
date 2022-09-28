@@ -146,26 +146,21 @@ def AddEmp():
         return render_template('GetEmp.html', name=emp_name)
 
   
-   # ffname=[record[0] for record in records]
-   # llname=[record[1] for record in records]
-   
 
-
-#below
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
     if request.method =='POST':
        try:
             eid = request.form['emp_id']
             cursor = db_conn.cursor()
-            fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location from employee where emp_id=%s"
+            fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location, gender,job_title,date_of_hired,monthly_pay from employee where emp_id=%s"
             cursor.execute(fetch_sql,(eid))
             emp=cursor.fetchall()
             db_conn.commit()
             (emp_id, first_name, last_name, pri_skill, location)=emp[0]
             image_url=show_image(custombucket)
            
-            return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,image_url=image_url)
+            return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,gender=gender,job_title=job_title,date_of_hired=date_of_hired,monthly_pay=monthly_pay,image_url=image_url)
        except Exception as e:
             return render_template('IdNotFound.html')
     else:
