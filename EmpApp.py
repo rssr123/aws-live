@@ -50,8 +50,6 @@ def show_image(bucket):
 
 
 
-
-
 @app.route("/apply", methods=['GET', 'POST'])
 def apply():
     return render_template('ApplyLeave.html')
@@ -78,8 +76,11 @@ def AddEmp():
         leave_end_date=0000-00-00
         leave_reason='none'
         leave_status='none'
+        job_title = request.form['job_title']
+        gender=request.form['gender']
+        date_of_hired=request.form['date_of_hired']
 
-        insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s,%s,%s,%s)"
+        insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s)"
         cursor = db_conn.cursor()
 
         if emp_image_file.filename == "":
@@ -87,10 +88,10 @@ def AddEmp():
 
         try:
 
-            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,leave_start_date,leave_end_date,leave_reason,leave_status))
+            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,leave_start_date,leave_end_date,leave_reason,leave_status,job_title,gender,date_of_hired))
             db_conn.commit()
             emp_name = "" + first_name + " " + last_name
-            # Uplaod image file in S3 #
+            # Upload image file in S3 #
             emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.jpg"
             s3 = boto3.resource('s3')
 
@@ -180,7 +181,6 @@ def ViewLeave():
     except Exception as e:
       return render_template('IdNotFound.html')
 
-
 #below
 @app.route("/approveleave", methods=['GET', 'POST'])
 def ApproveLeave():
@@ -196,6 +196,21 @@ def ApproveLeave():
       cursor.execute(approve_leave,(lestatus,eid))
       db_conn.commit()
       return render_template('ApproveLeave.html',first_name=approve_va)
+    except Exception as e:
+      return render_template('IdNotFound.html')
+
+#Foo
+@app.route("/calculatePayroll", methods=['GET', 'POST'])
+def calculatePayroll():
+    try:
+      view_leave_emp_id = request.form['view_leave_emp_id']
+      view_leave = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status from employee where emp_id=%s"
+      cursor = db_conn.cursor()
+      cursor.execute(view_leave,(view_leave_emp_id))
+      view_records = cursor.fetchall()
+      db_conn.commit()
+      (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
+      return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
     except Exception as e:
       return render_template('IdNotFound.html')
 
