@@ -149,8 +149,8 @@ def AddEmp():
 
 @app.route("/fetchdata", methods=['GET', 'POST'])
 def FetchData():
-    if request.method =='POST':
-       try:
+  #  if request.method =='POST':
+   #    try:
             eid = request.form['emp_id']
             cursor = db_conn.cursor()
             fetch_sql = "Select emp_id, first_name, last_name, pri_skill, location, gender,job_title,date_of_hired,monthly_pay from employee where emp_id=%s"
@@ -163,8 +163,8 @@ def FetchData():
             return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,gender=gender,job_title=job_title,date_of_hired=date_of_hired,monthly_pay=monthly_pay,image_url=image_url)
       # except Exception as e:
           #  return render_template('IdNotFound.html')
-    else:
-        return render_template('AddEmp.html',fetchdata=fetchdata)
+   # else:
+   #     return render_template('AddEmp.html',fetchdata=fetchdata)
 
 #below
 @app.route("/applyleave", methods=['GET', 'POST'])
