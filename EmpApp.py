@@ -6,7 +6,7 @@ from config import *
 
 app = Flask(__name__)
 
-bucket = custombucket 
+bucket = custombucket
 region = customregion
 
 db_conn = connections.Connection(
@@ -50,8 +50,6 @@ def show_image(bucket):
 
 
 
-
-
 @app.route("/apply", methods=['GET', 'POST'])
 def apply():
     return render_template('ApplyLeave.html')
@@ -73,32 +71,31 @@ def AddEmp():
         last_name = request.form['last_name']
         pri_skill = request.form['pri_skill']
         location = request.form['location']
+        emp_image_file = request.files['emp_image_file']
         leave_start_date=0000-00-00
         leave_end_date=0000-00-00
         leave_reason='none'
         leave_status='none'
-        gender=request.form['gender']        
+        gender='rfsd'
         job_title = request.form['job_title']
         date_of_hired=request.form['date_of_hired']
-        hourly_wage = '1'
-        # hours_worked = '1'
-        # monthly_pay = '1'
-        emp_image_file = request.files['emp_image_file']        
+        hourly_wage='0'
+        hours_worked='0'
+        monthly_pay='0'
 
-# %s,%s,%s
-        insert_sql = "INSERT INTO employee VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         cursor = db_conn.cursor()
 
         if emp_image_file.filename == "":
             return "Please select a file"
 
         try:
-# hourly_wage,hours_worked,monthly_pay
-            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,leave_start_date,leave_end_date,leave_reason,leave_status,gender,job_title,date_of_hired,hourly_wage))
+
+            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,leave_start_date,leave_end_date,leave_reason,leave_status,gender,job_title,date_of_hired,hourly_wage,hours_worked,monthly_pay))
             db_conn.commit()
             emp_name = "" + first_name + " " + last_name
-            # Uplaod image file in S3 #
-            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+            # Upload image file in S3 #
+            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.jpg"
             s3 = boto3.resource('s3')
 
             try:
@@ -112,20 +109,15 @@ def AddEmp():
                 else:
                    s3_location = '-' + s3_location
 
-                object_url = "https://{0}.s3.amazonaws.com/{1}".format(
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                   s3_location,
                    custombucket,
-                #    s3_location,
                    emp_image_file_name_in_s3)
 
-                # object_url = "https://{0}.s3.amazonaws.com/{1}/{2}".format(
-                #    custombucket,
-                #    s3_location,
-                #    emp_image_file_name_in_s3)
-
-            except Exception as e:
-               return str(e)
-        except Exception as e:
-            return str(e)
+           # except Exception as e:
+         #      return str(e)
+     #   except Exception as e:
+  #          return str(e)
         finally:
             cursor.close()
 
@@ -188,10 +180,10 @@ def ViewLeave():
       view_records = cursor.fetchall()
       db_conn.commit()
       (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
-      return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
+      return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,
+      leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
     except Exception as e:
       return render_template('IdNotFound.html')
-
 
 #below
 @app.route("/approveleave", methods=['GET', 'POST'])
@@ -211,32 +203,18 @@ def ApproveLeave():
     except Exception as e:
       return render_template('IdNotFound.html')
 
-#Foo   
-@app.route("/payroll", methods=['GET', 'POST'])
-def Payroll():
+#Foo
+@app.route("/calculatePayroll", methods=['GET', 'POST'])
+def calculatePayroll():
     try:
-      payroll_emp_id = request.form['payroll_emp_id']
-      payroll = "Select emp_id, first_name, last_name, hourly_wage, hours_worked, monthly_pay from employee where emp_id=%s"
+      view_leave_emp_id = request.form['view_leave_emp_id']
+      view_leave = "Select emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status from employee where emp_id=%s"
       cursor = db_conn.cursor()
-      cursor.execute(payroll,(payroll_emp_id))
+      cursor.execute(view_leave,(view_leave_emp_id))
       view_records = cursor.fetchall()
       db_conn.commit()
-      (emp_id, first_name, last_name, hourly_wage, hours_worked, monthly_pay)=view_records[0]
-      return render_template('Payroll.html', emp_id=emp_id, first_name=first_name,last_name=last_name,hourly_wage=hourly_wage, leave_end_date=leave_end_date, hours_worked=hours_worked, monthly_pay=monthly_pay)
-    except Exception as e:
-      return render_template('IdNotFound.html')
-
-#Foo
-@app.route("/updatePayroll", methods=['GET', 'POST'])
-def UpdatePayroll():
-    try:
-      hourly_wage = request.form['hourly_wage']
-      eid = request.form['emp_id']
-      updateHourly = "update employee set hourly_wage = %s where emp_id=%s"
-      cursor = db_conn.cursor()
-      cursor.execute(updateHourly,(hourly_wage,eid))
-      db_conn.commit()
-      return render_template('UpdatePayroll.html')
+      (emp_id, first_name, last_name, leave_start_date, leave_end_date, leave_reason, leave_status)=view_records[0]
+      return render_template('ViewApplyLeave.html', emp_id=emp_id, first_name=first_name,last_name=last_name,leave_start_date=leave_start_date, leave_end_date=leave_end_date, leave_reason=leave_reason, leave_status=leave_status)
     except Exception as e:
       return render_template('IdNotFound.html')
 
