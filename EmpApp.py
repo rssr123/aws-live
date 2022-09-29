@@ -100,22 +100,22 @@ def AddEmp():
         hourly_wage='0'
         hours_worked= '0'
         monthly_pay = '0'
+        check_in = '0'
         emp_image_file = request.files['emp_image_file']       
 
  
-        insert_sql = "INSERT INTO employee VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        insert_sql = "INSERT INTO employee VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         cursor = db_conn.cursor()
 
         if emp_image_file.filename == "":
             return "Please select a file"
 
         try: 
-            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,leave_start_date,leave_end_date,
-            leave_reason,leave_status,gender,job_title,date_of_hired,hourly_wage,hours_worked,monthly_pay))
+            cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,leave_start_date,leave_end_date,leave_reason,leave_status,gender,job_title,date_of_hired,hourly_wage,hours_worked,monthly_pay,check_in))
             db_conn.commit()
             emp_name = "" + first_name + " " + last_name
             # Upload image file in S3 #
-            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file.jpg"
+            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
             s3 = boto3.resource('s3')
 
             try:
@@ -161,8 +161,7 @@ def FetchData():
             (emp_id, first_name, last_name, pri_skill, location,gender,job_title,date_of_hired,monthly_pay)=emp[0]
             image_url=show_image(custombucket)
            
-            return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,
-            gender=gender,job_title=job_title,date_of_hired=date_of_hired,monthly_pay=monthly_pay,image_url=image_url)
+            return render_template('GetEmpOutput.html',id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location,gender=gender,job_title=job_title,date_of_hired=date_of_hired,monthly_pay=monthly_pay,image_url=image_url)
        except Exception as e:
             return render_template('IdNotFound.html')
     else:
@@ -230,8 +229,7 @@ def Payroll():
       view_records = cursor.fetchall()
       db_conn.commit()
       (emp_id, first_name, last_name, hourly_wage)=view_records[0]
-      return render_template('ViewPayroll.html', emp_id=emp_id, 
-      first_name=first_name,last_name=last_name,hourly_wage=hourly_wage)
+      return render_template('ViewPayroll.html', emp_id=emp_id, first_name=first_name,last_name=last_name,hourly_wage=hourly_wage)
     except Exception as e:
       return render_template('IdNotFound.html')
 
